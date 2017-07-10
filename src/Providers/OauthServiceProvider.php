@@ -21,8 +21,8 @@ class OauthServiceProvider extends ServiceProvider
 
 	public function registerOauthSingleton()
 	{
-		$this->app->singleton('', function() {
-			return;
+		$this->app->singleton('OauthUser', function() {
+			return new OauthRepository();
 		});
 	}
 }

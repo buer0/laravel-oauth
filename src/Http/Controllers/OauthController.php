@@ -9,8 +9,14 @@ use Illuminate\Http\Request;
 class OauthController
 {
 	
-	function __construct(argument)
+	public function oauthLogin()
 	{
-		# code...
+		//
+	}
+
+
+	public function oauthCallback()
+	{
+		//
 	}
 }
