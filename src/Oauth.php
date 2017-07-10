@@ -13,5 +13,15 @@ class Oauth
 		$callback = $callback ?: function($router) {
 			$router->registerRoute();
 		};
+
+		$defaultOptions = [
+			'prefix' => 'oauth',
+			'namespace' => '\Buerxiaojie\Http\Controllers';
+		];
+		$options = array_merge($defaultOptions, $options);
+
+		Route::group($options, function($router) use ($callback) {
+			$callback(new RouteRegistrar($router));
+		});
 	}
 }
