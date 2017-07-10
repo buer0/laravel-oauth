@@ -1,0 +1,25 @@
+{
+  "name": "buerxiaojie/laravel-oauth",
+  "description": "oauth for laravel",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "buer",
+      "email": "1219476468@qq.com"
+    },
+    {
+      "name": "silvercell"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "illuminate/support": "5.3.*||5.4.*",
+  },
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+    	"Buerxiaojie\\": "src/"
+    }
+  }
+}
