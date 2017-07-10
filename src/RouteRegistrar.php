@@ -18,8 +18,14 @@ class RouteRegistrar
 
 	public function all()
 	{
+		$this->oauthUri();
 		$this->oauthLogin();
 		$this->oauthCallback();
+	}
+
+	public function oauthUri()
+	{
+		$this->router->get('oauth-uri', ['uses'=>'OauthController@oauthUri']);
 	}
 
 	public function oauthLogin()
