@@ -3,6 +3,7 @@ namespace Buerxiaojie\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use OauthUser;
 
 /**
 * 
@@ -11,7 +12,7 @@ class OauthController
 {
 	public function oauthUri()
 	{
-		//
+		$oauthUri = OauthUser::oauthUri();
 	}
 
 

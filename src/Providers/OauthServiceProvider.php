@@ -11,7 +11,9 @@ class OauthServiceProvider extends ServiceProvider
 	
 	public function boot()
 	{
-		//
+		$this->publishes([
+			__DIR__ . '/../Config/OauthConfig.php' => config_path('oauth.php'),
+		]);
 	}
 
 	public function register()
