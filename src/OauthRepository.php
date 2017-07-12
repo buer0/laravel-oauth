@@ -6,6 +6,7 @@ use Buerxiaojie\Servers\QQ;
 use Buerxiaojie\Servers\WeChat;
 use Exception;
 
+
 /**
 * 
 */
@@ -23,6 +24,7 @@ class OauthRepository
 	public function __construct(Request $request)
 	{
 		$this->complateServers();
+		$this->userInfo = bindUserInfo($request);
 		$server = $this->bindOauthServer($request);
 	}
 
@@ -34,6 +36,25 @@ class OauthRepository
 	public function oauthUri()
 	{
 		return $this->server->createAuthorizeAPI();
+	}
+
+	public function getUserInfo($request)
+	{
+		$token = $this->server->getToken($request->get('code'));
+
+		$openID = $this->server->getOpenID($token);
+
+		$userInfo = $this->server->getUserInfo($token, $openID);
+
+		$this->userInfo = json_decode($userInfo);
+
+		$request->session()->put('oauthUser', $this->userInfo);
+		return $this->userInfo;
+	}
+
+	public function bindUserInfo($request)
+	{
+		return $request->session()->get('oauthUser') ?: null;
 	}
 
 	public function bindOauthServer($request)

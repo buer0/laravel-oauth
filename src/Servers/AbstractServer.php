@@ -2,6 +2,7 @@
 namespace Buerxiaojie\Servers;
 
 use Buerxiaojie\Contracts\Oauth;
+use GuzzleHttp\Client;
 
 abstract class  AbstractServer implements Oauth
 {
@@ -10,6 +11,16 @@ abstract class  AbstractServer implements Oauth
 	protected $tokenAPI;
 
 	protected $userInfoAPI;
+
+	protected $http;
+
+	protected $state;
+
+	public function __construct()
+	{
+		$this->http = new Client();
+		$this->state = 'state';
+	}
 
 	abstract public function createAuthorizeAPI;
 
