@@ -33,7 +33,7 @@ class OauthRepository
 
 	public function oauthUri()
 	{
-		return $this->server->baseUri . http_build_query([]);
+		return $this->server->createAuthorizeAPI();
 	}
 
 	public function bindOauthServer($request)

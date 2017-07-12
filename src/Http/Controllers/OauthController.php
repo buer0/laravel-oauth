@@ -12,7 +12,7 @@ class OauthController
 {
 	public function oauthUri()
 	{
-		$oauthUri = OauthUser::oauthUri();
+		return OauthUser::oauthUri();
 	}
 
 
@@ -23,8 +23,17 @@ class OauthController
 	}
 
 
-	public function oauthCallback()
+	public function oauthCallback(Request $request)
 	{
-		//
+		$code = $request->get('code');
+		if(!$code) {
+			return json_encode(['error' => 'param error']);
+		}
+
+		$token = OauthUser::getToken($code);
+
+		$openID = OauthUser::getOpenID($token);
+
+		$userInfo = OauthUser::getUserInfo($openID);
 	}
 }

@@ -6,7 +6,7 @@ return [
 	],
 
 	'pass' => [
-		'QQ' => [
+		'qq' => [
 			'app_id' => 'ertyui',
 			'app_secret' => 'erftyuiytrertyuiuertyuiytetryui',
 		],
