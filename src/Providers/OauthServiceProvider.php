@@ -14,6 +14,9 @@ class OauthServiceProvider extends ServiceProvider
 		$this->publishes([
 			__DIR__ . '/../Config/OauthConfig.php' => config_path('oauth.php'),
 		]);
+		/*
+			发布用户信息处理类
+		*/
 	}
 
 	public function register()
