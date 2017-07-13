@@ -13,6 +13,9 @@
     }
   ],
   "require": {
+    "php": ">=5.5",
+    "illuminate/support": "5.3.*||5.4.*",
+    "guzzlehttp/guzzle": "~6.0"
   },
   "minimum-stability": "stable",
   "autoload": {

@@ -17,6 +17,13 @@ class OauthServiceProvider extends ServiceProvider
 		$this->publishes([
 			__DIR__ . '/../Handler/Handler.php' => app_path('Oauth/Handler.php'),
 		]);
+
+		if ($this->app->runningInConsole()) {
+
+            $this->commands([
+                \Buerxiaojie\Console\OauthServerCommand::class,
+            ]);
+        }
 	}
 
 	public function register()
