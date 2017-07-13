@@ -4,6 +4,7 @@ namespace Buerxiaojie\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use OauthUser;
+use App\Oauth\Handler;
 
 /**
 * 
@@ -27,6 +28,6 @@ class OauthController
 	{
 		$userInfo = OauthUser::getUserInfo($request);
 
-		return $userInfo;
+		return new Handler()->handle();
 	}
 }
