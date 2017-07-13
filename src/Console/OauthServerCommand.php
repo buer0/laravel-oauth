@@ -41,7 +41,7 @@ class OauthServerCommand extends Command
      */
     public function handle()
     {
-        $name = $this->arguments();
+        $name = $this->argument('servername');
 
     }
 }
