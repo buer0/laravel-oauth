@@ -44,7 +44,7 @@ composer require buerxiaojie/laravel-oauth
    * 
    */
    
-  'qq' => [
+  	'qq' => [
 		'app_id' => 'YOUR APP ID',
 		'app_secret' => 'YOUR APP SECRET',
 	],
@@ -111,7 +111,7 @@ composer require buerxiaojie/laravel-oauth
 ### 4. 在页面中放置请求链接：
 
 ```php
-	<img src="/oauth/oauth-login?server=github">
+	<a href="/oauth/oauth-login?server=github"><img src=""></a>
 ```
 
 ### 5. 若自定义回掉地址，则在对应的回掉方法中通过以下方法获取用户信息：
