@@ -62,7 +62,7 @@ class QQ extends AbstractServer
         return $this->openIdAPI . "access_token=$token";
     }
 
-    public function getUserInfo($openID)
+    public function getUserInfo($token, $openID)
     {
         $userInfo = $this->http->get($this->createUserInfoAPI($token, $openID));
         return $userInfo;
