@@ -53,6 +53,6 @@ class Github extends AbstractServer
 
 	public function createUserInfoAPI($token)
 	{
-		return $this->userInfoAPI . 'access_token=' . $token;
+		return $this->userInfoAPI . 'token_type=bearer&access_token=' . $token;
 	}
 }
