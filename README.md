@@ -81,6 +81,7 @@ composer require buerxiaojie/laravel-oauth
 
 ### 3. 添加新的`server`。
 
+
 #### 1. 运行一下命令生成`server`类
 
 ```php
