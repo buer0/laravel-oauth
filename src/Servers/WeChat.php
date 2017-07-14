@@ -7,58 +7,26 @@ namespace Buerxiaojie\Servers;
 class WeChat extends AbstractServer
 {
 	
-	public $authorizeAPI = 'https://open.weixin.qq.com/connect/oauth2/authorize?';
+	protected $authorizeAPI = 'https://open.weixin.qq.com/connect/oauth2/authorize?';
 
-    /**
-     * The authorize scope.
-     * 
-     * @var string
-     * @access public
-     */
-    public $authorizeScope = 'snsapi_userinfo';
+    protected $authorizeScope = 'snsapi_userinfo';
 
-    /**
-     * The token api.
-     * 
-     * @var string
-     * @access public
-     */
-    public $tokenAPI ='https://api.weixin.qq.com/sns/oauth2/access_token';
+    protected $tokenAPI ='https://api.weixin.qq.com/sns/oauth2/access_token';
 
-    /**
-     * The open id api.
-     * 
-     * @var string
-     * @access public
-     */
-    public $openIdAPI = 'https://api.weixin.qq.com/sns/userinfo?';
+    protected $openIdAPI = 'https://api.weixin.qq.com/sns/userinfo?';
 
-    /**
-     * The user info api.
-     * 
-     * @var string
-     * @access public
-     */
-    public $userInfoAPI = 'https://api.weixin.qq.com/sns/userinfo?';
+    protected $userInfoAPI = 'https://api.weixin.qq.com/sns/userinfo?';
 
-	public $redirectURI = 'https://<Your Server>/user-oauthCallback-wechat.html';
-    /** 
-     * Create the api of authorize. 
-     * 
-     * @access public
-     * @return string
-     */
+  
     public function createAuthorizeAPI()
     {
-        $token= md5(uniqid(mt_rand(1,9999),1).time());
-        $_SESSION['wechattoken']=$token;
-        $this->redirectURI= url('/oauth/oauth-callback');
-        
-        $params['appid']     = $this->clientID;
-        $params['redirect_uri']  = $this->redirectURI;
-        $params['response_type'] = 'code';
-        $params['scope']         = $this->authorizeScope;
-        $params['state']         = $this->state;
+        $params = [
+            'response_type' => 'code',
+            'appid' => $this->client_id,
+            'redirect_uri' => $this->redirect_url,
+            'state' => $this->state,
+            'scope' => $this->authorizeScope
+        ];
 
         return $this->authorizeAPI . http_build_query($params) . '#wechat_redirect';
     }
@@ -81,11 +49,13 @@ class WeChat extends AbstractServer
 
     public function createTokenAPI($code)
     {
-        $params['grant_type']    = 'authorization_code';
-        $params['appid']     = $this->clientID;
-        $params['secret'] = $this->clientSecret;
-        $params['redirect_uri']  = $this->redirectURI;
-        $params['code']          = $code;
+        $params = [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->client_id,
+            'secret' => $this->client_secret,
+            'redirect_uri' => $this->redirect_url,
+            'code' => $code
+        ];
 
         return $this->tokenAPI . http_build_query($params);
     }
@@ -111,9 +81,11 @@ class WeChat extends AbstractServer
 
     public function createUserInfoAPI($token, $openID)
     {
-    	$params['access_token']       = $token->accessToken;
-        $params['openid']             = $openID;
-        $params['lang']             = 'zh_CN';
+        $params = [
+            'access_token' => $token,
+            'openid' => $openID,
+            'lang' => 'zh_CN'
+        ];
         return $this->userInfoAPI . http_build_query($params);
     }
 }

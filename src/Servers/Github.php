@@ -20,9 +20,9 @@ class Github extends AbstractServer
 	public function createAuthorizeAPI()
 	{
 		$params = [
-			'client_id' => config('oauth.pass.github.app_id'),
-			'redirect_uri' => url('/oauth/oauth-callback'),
-			'state' => 'asdrtyui',
+			'client_id' => $this->client_id,
+			'redirect_uri' => $this->redirect_url,
+			'state' => $this->state,
 		];
 
 		return $this->authorizeAPI . http_build_query($params);
@@ -31,8 +31,8 @@ class Github extends AbstractServer
 	public function getToken($code)
 	{
 		$params = [
-			'client_id' => config('oauth.pass.github.app_id'),
-			'client_secret' => config('oauth.pass.github.app_secret'),
+			'client_id' => $this->client_id,
+			'client_secret' => $this->client_secret,
 			'code' => $code
 		];
 

@@ -21,13 +21,11 @@ class QQ extends AbstractServer
     {
     	$params = [
     		'response_type' => 'code',
-    		'client_id' => config('oauth.pass.qq.app_id'),
+    		'client_id' => $this->client_id,
+            'redirect_uri' => $this->redirect_url,
+            'state' => $this->state,
+            'scope' => $this->authorizeScope
     	];
-        /*$params['response_type'] = 'code';
-        $params['client_id']     = $this->clientID;
-        $params['redirect_uri']  = url('/oauth/oauth-callback');
-        $params['state']         = $this->state;
-        $params['scope']         = $this->authorizeScope;*/
 
         return $this->authorizeAPI . http_build_query($params);
     }
@@ -41,11 +39,13 @@ class QQ extends AbstractServer
 
     protected function createTokenAPI($code)
     {
-        $params['grant_type']    = 'authorization_code';
-        $params['client_id']     = $this->clientID;
-        $params['client_secret'] = $this->clientSecret;
-        $params['redirect_uri']  = $this->redirectURI;
-        $params['code']          = $code;
+        $params = [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->client_id,
+            'client_secret' => $this->client_secret,
+            'redirect_uri' => $this->redirect_url,
+            'code' => $code
+        ];
 
         return $this->tokenAPI . http_build_query($params);
     }
@@ -70,10 +70,12 @@ class QQ extends AbstractServer
 
     public function createUserInfoAPI($token, $openID)
     {
-        $params['oauth_consumer_key'] = $this->clientID;
-        $params['access_token']       = $token;
-        $params['openid']             = $openID;
-        $params['format']             = 'json';
+        $params = [
+            'oauth_consumer_key' => $this->client_id,
+            'access_token' => $token,
+            'openid' => $openID,
+            'format' => 'json'
+        ];
 
         return $this->userInfoAPI . http_build_query($params);
     }

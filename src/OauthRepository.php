@@ -84,7 +84,7 @@ class OauthRepository
 			throw new Exception("oauth server not exists");
 		}
 
-		return new $class();
+		return new $class($server);
 	}
 
 	public function complateServers()

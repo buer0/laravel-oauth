@@ -3,15 +3,11 @@ namespace Buerxiaojie\Contracts;
 
 interface Oauth
 {
-	protected $authorizeAPI;
-
-	protected $tokenAPI;
-
-	protected $userInfoAPI;
-
 	public function createAuthorizeAPI;
 
-	public function createTokenAPI;
+	public function getToken;
+
+	public function getOpenID;
 
 	public function getUserInfo;
 }
