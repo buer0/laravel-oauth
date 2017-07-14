@@ -89,7 +89,7 @@ composer require buerxiaojie/laravel-oauth
 
 `app/Oauth/Servers/Github.php`即可生成。填充相应的方法即可。
 
-### 2. 在 `config/oauth.php` 文件中配置以下：
+#### 2. 在 `config/oauth.php` 文件中配置以下：
 
 ```php
   /**
@@ -108,13 +108,13 @@ composer require buerxiaojie/laravel-oauth
  
 ```
 
-### 4. 在页面中放置请求链接：
+#### 3. 在页面中放置请求链接：
 
 ```php
 	<a href="/oauth/oauth-login?server=github"><img src=""></a>
 ```
 
-### 5. 若自定义回掉地址，则在对应的回掉方法中通过以下方法获取用户信息：
+#### 4. 若自定义回掉地址，则在对应的回掉方法中通过以下方法获取用户信息：
 ```php
 	use OauthUser;
 
