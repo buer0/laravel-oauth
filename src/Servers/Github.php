@@ -15,14 +15,11 @@ class Github extends AbstractServer
 
 	protected $userInfoAPI = 'https://api.github.com/user?';
 
-	protected $authorizeScope = ['user:email'];
-
 	public function createAuthorizeAPI()
 	{
 		$params = [
 			'client_id' => $this->client_id,
 			'redirect_uri' => $this->redirect_url,
-			'scope' => $authorizeScope,
 			'state' => $this->state,
 		];
 
@@ -35,7 +32,6 @@ class Github extends AbstractServer
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
 			'code' => $code,
-			'scope' => $this->authorizeScope
 		];
 
 		$response = $this->http->post($this->tokenAPI, [
@@ -64,18 +60,4 @@ class Github extends AbstractServer
 		return $this->userInfoAPI;
 	}
 
-	public function getEmaiByToken($token)
-	{
-		$emailsUrl = 'https://api.github.com/user/emails?access_token='.$token;
-        try {
-            $response = $this->http->get($emailsUrl);
-        } catch (Exception $e) {
-            return;
-        }
-        foreach (json_decode($response->getBody(), true) as $email) {
-            if ($email['primary'] && $email['verified']) {
-                return $email['email'];
-            }
-        }
-	}
 }

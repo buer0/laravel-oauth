@@ -47,9 +47,7 @@ class OauthRepository
 
 		$openID = $this->server->getOpenID($token);
 
-		$userInfo = $this->server->getUserInfo($token, $openID);
-
-		$this->userInfo = json_decode($userInfo);
+		$this->userInfo = $this->server->getUserInfo($token, $openID);
 
 		$request->session()->put('oauthUser', $this->userInfo);
 		return $this->userInfo;

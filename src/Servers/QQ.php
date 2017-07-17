@@ -32,9 +32,10 @@ class QQ extends AbstractServer
 
     public function getToken($code)
     {
-        $token = $this->client->get($this->createTokenAPI($token));
+        $response = $this->http->get($this->createTokenAPI($code));
 
-        return $token;
+        parse_str($response->getBody()->getContents(), $body);
+        return $body['access_token'];
     }
 
     protected function createTokenAPI($code)
@@ -52,9 +53,10 @@ class QQ extends AbstractServer
 
     public function getOpenID($token)
     {
-        $openID = $this->http->get($this->createOpenIDAPI($token));
-
-        return $openID;
+        $response = $this->http->get($this->createOpenIDAPI($token));
+        $body = preg_replace('/^(.*)({.*})(.*)$/i','$2',$response->getBody()->getContents());
+        $body = json_decode(trim($body), true);
+        return $body['openid'];
     }
 
     protected function createOpenIDAPI($token)
@@ -64,8 +66,11 @@ class QQ extends AbstractServer
 
     public function getUserInfo($token, $openID)
     {
-        $userInfo = $this->http->get($this->createUserInfoAPI($token, $openID));
-        return $userInfo;
+        $response = $this->http->get($this->createUserInfoAPI($token, $openID));
+        $body = json_decode($response->getBody()->getContents(), true);
+        unset($body['ret']);
+        unset($body['msg']);
+        return $body;
     }
 
     public function createUserInfoAPI($token, $openID)
