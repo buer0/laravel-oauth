@@ -22,6 +22,7 @@ class Github extends AbstractServer
 		$params = [
 			'client_id' => $this->client_id,
 			'redirect_uri' => $this->redirect_url,
+			'scope' => $authorizeScope,
 			'state' => $this->state,
 		];
 
@@ -33,12 +34,15 @@ class Github extends AbstractServer
 		$params = [
 			'client_id' => $this->client_id,
 			'client_secret' => $this->client_secret,
-			'code' => $code
+			'code' => $code,
+			'scope' => $this->authorizeScope
 		];
 
-		$token = $this->http->post($this->tokenAPI, $params);
+		$response = $this->http->post($this->tokenAPI, [
+			'headers' => ['Accept' => 'application/json'],
+			'form_params' => $params]);
 
-		return $token;
+		return json_decode($response->getBody(), true)['access_token'];
 	}
 
 	public function getOpenID($token) {
@@ -47,12 +51,31 @@ class Github extends AbstractServer
 
 	public function getUserInfo($token, $openID)
 	{
-		$userInfo = $this->http->get($this->createUserInfoAPI($token));
+		$response = $this->http->get($this->createUserInfoAPI($token), [
+				'headers' => ['Authorization' => 'token ' . $token]
+			]);
+		$userInfo = json_decode($response->getBody(), true);
+		$userInfo['email'] = $this->getEmaiByToken($token);
         return $userInfo;
 	}
 
 	public function createUserInfoAPI($token)
 	{
-		return $this->userInfoAPI . 'token_type=bearer&access_token=' . $token;
+		return $this->userInfoAPI;
+	}
+
+	public function getEmaiByToken($token)
+	{
+		$emailsUrl = 'https://api.github.com/user/emails?access_token='.$token;
+        try {
+            $response = $this->http->get($emailsUrl);
+        } catch (Exception $e) {
+            return;
+        }
+        foreach (json_decode($response->getBody(), true) as $email) {
+            if ($email['primary'] && $email['verified']) {
+                return $email['email'];
+            }
+        }
 	}
 }

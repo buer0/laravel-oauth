@@ -28,6 +28,7 @@ class OauthController
 	{
 		$userInfo = OauthUser::getUserInfo($request);
 
-		return new Handler()->handle();
+		$handler = new Handler();
+		return $handler->handle();
 	}
 }

@@ -1,10 +1,9 @@
 <?php 
 namespace Buerxiaojie\Servers;
 
-use Buerxiaojie\Contracts\Oauth;
 use GuzzleHttp\Client;
 
-abstract class  AbstractServer implements Oauth
+abstract class  AbstractServer
 {
 	protected $http;
 
@@ -26,7 +25,7 @@ abstract class  AbstractServer implements Oauth
 		$this->redirect_url = config("oauth.pass.{$server}.redirect_url")?:url('/oauth/oauth-callback');
 	}
 
-	abstract public function createAuthorizeAPI;
+	abstract public function createAuthorizeAPI();
 
 	abstract public function getToken($code);
 

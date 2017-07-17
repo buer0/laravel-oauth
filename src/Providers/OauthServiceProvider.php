@@ -2,6 +2,7 @@
 namespace Buerxiaojie\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Buerxiaojie\OauthRepository;
 
 /**
 * 

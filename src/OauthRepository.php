@@ -2,9 +2,10 @@
 namespace Buerxiaojie;
 
 use Illuminate\Http\Request;
+use Exception;
 use Buerxiaojie\Servers\QQ;
 use Buerxiaojie\Servers\WeChat;
-use Exception;
+use Buerxiaojie\Servers\Github;
 
 
 /**
@@ -14,18 +15,20 @@ class OauthRepository
 {
 	protected $servers = [
 		'qq' => 'QQ',
-		'wechat' => 'WeChat'
+		'wechat' => 'WeChat',
+		'github' => 'Github'
 	];
 
 	public $server;
 
 	public $userInfo;
 	
-	public function __construct(Request $request)
+	public function __construct()
 	{
+		$request = Request();
 		$this->complateServers();
-		$this->userInfo = bindUserInfo($request);
-		$server = $this->bindOauthServer($request);
+		$this->userInfo = $this->bindUserInfo($request);
+		$this->server = $this->bindOauthServer($request);
 	}
 
 	public function userInfo()
@@ -61,7 +64,7 @@ class OauthRepository
 	{
 		$server = $request->get('server', '');
 		if(!$server || !$this->validateServer($server)) {
-			$server = $request->session()->pluck('oauthServer');
+			$server = $request->session()->pull('oauthServer');
 			if(!$server || !$this->validateServer($server)) {
 				throw new Exception("no oauth server in session", 1);
 			}
@@ -80,10 +83,6 @@ class OauthRepository
 	public function serverInstance($server)
 	{
 		$class = $this->servers[$server];
-		if(!class_exists($class)) {
-			throw new Exception("oauth server not exists");
-		}
-
 		return new $class($server);
 	}
 
