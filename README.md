@@ -26,6 +26,15 @@ composer require buerxiaojie/laravel-oauth
 ```
 
 
+在 `app/Providers/AuthServiceProvider.php` 文件的 `boot` 方法中加入：
+
+```php
+	use Buerxiaojie\Oauth;
+
+	Oauth::routes();
+```
+
+
 ### 3. 生成配置文件：
 
 

@@ -16,7 +16,7 @@ class Oauth
 
 		$defaultOptions = [
 			'prefix' => 'oauth',
-			'namespace' => '\Buerxiaojie\Http\Controllers';
+			'namespace' => '\Buerxiaojie\Http\Controllers'
 		];
 		$options = array_merge($defaultOptions, $options);
 
