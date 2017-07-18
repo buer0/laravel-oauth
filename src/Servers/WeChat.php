@@ -17,6 +17,8 @@ class WeChat extends AbstractServer
 
     protected $userInfoAPI = 'https://api.weixin.qq.com/sns/userinfo?';
 
+    protected $openID;
+
   
     public function createAuthorizeAPI()
     {
@@ -41,9 +43,12 @@ class WeChat extends AbstractServer
     public function getToken($code)
     {
 		$uri = $this->createTokenAPI($code);
-		$token = $this->http->get($uri);
+		$response = $this->http->get($uri);
 
-		return $token;
+        $body = json_decode($response->getBody()->getContents(), true);
+
+        $this->openID = $body['openid'];
+		return $body['access_token'];
     }
 
 
@@ -69,14 +74,16 @@ class WeChat extends AbstractServer
      */
     public function getOpenID($token)
     {
-        return $token->openID;
+        return $this->openID;
     }
 
 
     public function getUserInfo($token, $openID)
     {
-        $userInfo = $this->http->get($this->createUserInfoAPI($token, $openID));
-        return $userInfo;
+        $response = $this->http->get($this->createUserInfoAPI($token, $openID));
+
+        $body = json_decode($response->getBody()->getContents(), true);
+        return $body;
     }
 
     public function createUserInfoAPI($token, $openID)
