@@ -14,7 +14,7 @@ class OauthServerCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:oauthServer';
+    protected $signature = 'make:oauthServer {name}';
 
     /**
      * The console command description.
