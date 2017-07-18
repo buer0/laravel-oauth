@@ -1,6 +1,6 @@
 {
   "name": "buerxiaojie/laravel-oauth",
-  "description": "oauth for laravel",
+  "description": "oauth for laravel. for example, QQ,  wechat, github..",
   "type": "library",
   "license": "MIT",
   "authors": [
