@@ -1,12 +1,12 @@
 <?php 
 namespace Buerxiaojie\Console;
 
-use Illuminate\Console\Command;
+use Illuminate\Console\GeneratorCommand;
 
 /**
 * 
 */
-class OauthServerCommand extends Command
+class OauthServerCommand extends GeneratorCommand
 {
 	
 	/**
@@ -14,8 +14,7 @@ class OauthServerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:oauthServer
-                            {servername}';
+    protected $signature = 'make:oauthServer';
 
     /**
      * The console command description.
@@ -24,24 +23,15 @@ class OauthServerCommand extends Command
      */
     protected $description = 'generate a oauth server for system';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $type = 'OauthServer';
+
+    protected function getStub()
     {
-        parent::__construct();
+        return __DIR__.'/stubs/server.stub';
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    protected function getDefaultNamespace($rootNamespace)
     {
-        $name = $this->argument('servername');
-
+        return $rootNamespace.'\Oauth\Servers';
     }
 }

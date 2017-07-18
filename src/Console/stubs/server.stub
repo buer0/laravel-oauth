@@ -1,0 +1,43 @@
+<?php
+
+namespace DummyNamespace;
+
+use Buerxiaojie\Servers\AbstractServer;
+
+class DummyClass extends AbstractServer
+{
+	/**
+		create authorize api for redirect
+	*/
+	public function createAuthorizeAPI()
+	{
+		//
+	}
+
+	/**
+	*	get access_token by code
+	*
+	* @return string
+	*/
+	public function getToken($code)
+	{
+		//
+	}
+
+	/**
+	 *	this step is not necessary，so you can return the token back redirectly
+	 *	@return string
+	*/
+	public function getOpenID($token)
+	{
+		//
+	}
+
+	/**
+	 * @return array
+	*/
+	public function getUserInfo($token, $openID)
+	{
+		//
+	}
+}
