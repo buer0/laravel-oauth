@@ -18,7 +18,6 @@ class RouteRegistrar
 
 	public function all()
 	{
-		$this->oauthUri();
 		$this->oauthLogin();
 		$this->oauthCallback();
 	}
