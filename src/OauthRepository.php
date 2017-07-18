@@ -3,10 +3,6 @@ namespace Buerxiaojie;
 
 use Illuminate\Http\Request;
 use Exception;
-use Buerxiaojie\Servers\QQ;
-use Buerxiaojie\Servers\WeChat;
-use Buerxiaojie\Servers\Github;
-
 
 /**
 * 
@@ -14,9 +10,9 @@ use Buerxiaojie\Servers\Github;
 class OauthRepository
 {
 	protected $servers = [
-		'qq' => 'QQ',
-		'wechat' => 'WeChat',
-		'github' => 'Github'
+		'qq' => 'Buerxiaojie\Servers\QQ',
+		'wechat' => 'Buerxiaojie\Servers\WeChat',
+		'github' => 'Buerxiaojie\Servers\Github'
 	];
 
 	public $server;
