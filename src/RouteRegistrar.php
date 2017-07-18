@@ -23,11 +23,6 @@ class RouteRegistrar
 		$this->oauthCallback();
 	}
 
-	public function oauthUri()
-	{
-		$this->router->get('oauth-uri', ['uses'=>'OauthController@oauthUri']);
-	}
-
 	public function oauthLogin()
 	{
 		$this->router->get('oauth-login', ['middleware'=>'web', 'uses'=>'OauthController@oauthLogin']);
