@@ -51,7 +51,6 @@ class Github extends AbstractServer
 				'headers' => ['Authorization' => 'token ' . $token]
 			]);
 		$userInfo = json_decode($response->getBody(), true);
-		$userInfo['email'] = $this->getEmaiByToken($token);
         return $userInfo;
 	}
 
