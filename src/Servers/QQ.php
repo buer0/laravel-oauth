@@ -54,7 +54,7 @@ class QQ extends AbstractServer
     public function getOpenID($token)
     {
         $response = $this->http->get($this->createOpenIDAPI($token));
-        $body = preg_replace('/^(.*)({.*})(.*)$/i','$2',$response->getBody()->getContents());
+        $body =preg_replace('/^(.*)({.*})(.*)$/i','$2',$response->getBody()->getContents());
         $body = json_decode(trim($body), true);
         return $body['openid'];
     }
