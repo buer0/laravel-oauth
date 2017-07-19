@@ -70,6 +70,7 @@ class QQ extends AbstractServer
         $body = json_decode($response->getBody()->getContents(), true);
         unset($body['ret']);
         unset($body['msg']);
+        $body['openid'] = $openID;
         return $body;
     }
 
