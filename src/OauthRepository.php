@@ -17,6 +17,8 @@ class OauthRepository
 
 	public $server;
 
+	protected $current_server_name;
+
 	public $userInfo;
 	
 	public function __construct()
@@ -66,7 +68,13 @@ class OauthRepository
 			$request->session()->put('oauthServer', $server);
 		}
 
+		$this->current_server_name = $server;
 		return $this->serverInstance($server);
+	}
+
+	public function currentServerName()
+	{
+		return $this->current_server_name;
 	}
 
 	public function validateServer($server)
